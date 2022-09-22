@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../reset.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    
+    <form class="box control-container js-control-elements">
+        <label for="laze-height">
+            Laze Height:
+            <input type="number" name="laze-height" value="25" min="5">
+        </label>
+        <label for="laze-height">
+            Laze Width:
+            <input type="number" name="laze-width" value="25" min="5">
+        </label>
+        <button type="button" class="js-generate-btn">Generate</button>
+        <button type="submit">Show Generate</button>
+        <button type="button" class="js-save-btn">Save as PNG</button>
+    </form>
+
+    <div class="box canvas-container">
+        <canvas class="js-canvas" height="1000" width="1000">
+
+        </canvas>
+    </div>
+
+    <script src="./script.js" type="module"></script>
+</body>
+</html>
