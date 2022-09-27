@@ -36,6 +36,8 @@
 
                 <div class="control-block no-top-padding">
                     <input type="checkbox" id="invert-box" disabled> <label for="invert-box">Инвертировать яркость</label>
+                    <input type="checkbox" id="draw-box" disabled> <label for="draw-box">Рисовать</label>
+                
                 </div>
 
                 <div class="control-block no-margin no-top-padding">
@@ -62,13 +64,13 @@
 
                 <div class="control-block no-top-padding">
                     <label><b>Количество гвоздей</b><br>
-                        <input type="number" id="nails-count-box" value="250" min="50" max="1000" disabled>
+                        <input type="number" id="nails-count-box" value="280" min="50" max="1000" disabled>
                     </label>
                 </div>
 
                 <div class="control-block">
                     <label><b>Количество линий</b><br>
-                        <input type="number" id="lines-count-box" value="100" min="100" max="10000" disabled>
+                        <input type="number" id="lines-count-box" value="3400" min="100" max="10000" disabled>
                     </label>
                 </div>
 
@@ -105,6 +107,7 @@
                         <select id="save-type-box">
                             <option value="png">png</option>
                             <option value="svg">svg</option>
+                            <option value="txt">for bot</option>
                             <option value="stringart">stringart</option>
                         </select>
                     </label>

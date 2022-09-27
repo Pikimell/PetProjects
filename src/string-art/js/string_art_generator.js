@@ -119,7 +119,6 @@ StringArtGenerator.prototype.GetNextNail = function (nail) {
     }
   }
 
-  console.log(`${nail} --> ${nextNail}`);
   return {
     nail: nextNail,
     line: nextLine,
@@ -251,6 +250,7 @@ StringArtGenerator.prototype.EndGenerate = function () {
   this.resetBtn.removeAttribute("disabled");
   this.selectBtn.removeAttribute("disabled");
   this.linesCountBox.removeAttribute("disabled");
+  alert("END");
 };
 
 StringArtGenerator.prototype.GenerateIteration = function (
@@ -262,7 +262,7 @@ StringArtGenerator.prototype.GenerateIteration = function (
   startTime
 ) {
   this.sequence.push(nail);
-  this.ShowInfo(linesCount, totalCount, startTime);
+  if (this.isDraw) this.ShowInfo(linesCount, totalCount, startTime);
 
   if (linesCount == 0 || !this.isGenerating) {
     this.EndGenerate();
@@ -271,7 +271,8 @@ StringArtGenerator.prototype.GenerateIteration = function (
 
   let next = this.GetNextNail(nail);
   this.RemoveLine(next.line, lineWeight);
-  this.DrawLine(this.nails[nail], this.nails[next.nail], lineColor);
+  if (this.isDraw)
+    this.DrawLine(this.nails[nail], this.nails[next.nail], lineColor);
 
   window.requestAnimationFrame(() =>
     this.GenerateIteration(
@@ -314,6 +315,14 @@ StringArtGenerator.prototype.ToStringArt = function () {
     null,
     "    "
   );
+};
+
+StringArtGenerator.prototype.ToTxt = function () {
+  let result = ``;
+  for (let elem of this.sequence) {
+    result += elem + `\n`;
+  }
+  return result;
 };
 
 StringArtGenerator.prototype.ToSVG = function () {
@@ -364,6 +373,11 @@ StringArtGenerator.prototype.Save = function () {
   } else if (type == "svg") {
     link.href = URL.createObjectURL(new Blob([this.ToSVG()], { type: "svg" }));
     link.download = "art.svg";
+  } else if (type == "txt") {
+    link.href = URL.createObjectURL(
+      new Blob([this.ToTxt()], { type: "text/plain;charset=utf-8" })
+    );
+    link.download = "art.txt";
   }
 
   link.click();

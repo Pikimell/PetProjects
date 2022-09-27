@@ -76,5 +76,13 @@
     .view, .controls {
         display: block;
         width: auto;
+        
+    }
+
+    .view canvas {
+        width: 100%;
+        max-width: 600px !important;
+        max-height: 600px !important;
+        aspect-ratio: 1 / 1;
     }
 }
