@@ -16,7 +16,7 @@ jobs:
           npm i
       - name: Build 🔧
         run: |
-          npm run build
+          npm start
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
