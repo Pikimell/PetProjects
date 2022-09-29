@@ -49,6 +49,7 @@ StringArtGenerator.prototype.InitControls = function () {
 
   this.drawBox = document.getElementById("draw-box");
   this.drawBox.addEventListener("change", () => this.changeDrawble());
+  this.isDraw = true;
 
   this.contrastBox = document.getElementById("contrast-box");
   this.contrastValue = document.getElementById("contrast-value");

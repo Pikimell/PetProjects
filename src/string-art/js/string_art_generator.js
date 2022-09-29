@@ -250,7 +250,6 @@ StringArtGenerator.prototype.EndGenerate = function () {
   this.resetBtn.removeAttribute("disabled");
   this.selectBtn.removeAttribute("disabled");
   this.linesCountBox.removeAttribute("disabled");
-  alert("END");
 };
 
 StringArtGenerator.prototype.GenerateIteration = function (
