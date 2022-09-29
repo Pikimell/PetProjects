@@ -3,10 +3,9 @@ export class Circle {
   radius = 25;
   center = new Point();
   angle = 0;
-  step = 1;
   currentPoint = new Point();
 
-  constructor(canvas, center, step = 1, radius = 25) {
+  constructor({ canvas, center, step = 1, radius = 25 }) {
     const { x, y } = center;
     this.center = new Point(x, y);
     this.radius = radius;
@@ -24,7 +23,8 @@ export class Circle {
   }
 
   nextIteration() {
-    this.angle += this.step;
+    const speed = +(Math.abs(this.angle - 180) / 90).toFixed(2);
+    this.angle += this.step; // + speed;
     this.angle %= 360;
 
     const slice = (2 * Math.PI) / 360;

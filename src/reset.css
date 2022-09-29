@@ -1,5 +1,6 @@
 *::-webkit-scrollbar
 {
+	height: 7px;
 	width: 7px;
 	background-color: transparent;
 	scroll-padding: 10px;

@@ -1,71 +1,95 @@
 import { Circle } from "./circle.js";
+import reload from "./controlls.js";
 
+let idInterval = null;
 const refs = {
   canvas: document.querySelector(".js-canvas1"),
   canvas2: document.querySelector(".js-canvas2"),
   saveBtn: document.querySelector(".js-save-btn"),
 };
 
-const circlesX = [];
-const circlesY = [];
-const LEN = 10;
-const LENX = LEN;
-const LENY = LEN;
-const CIRCLE_RADIUS = 50;
+const options = {
+  circlesX: [],
+  circlesY: [],
+  LENX: 5,
+  LENY: 5,
+  CIRCLE_RADIUS: 50,
+  colorBrush: "blue",
+  widthBrush: 2,
+};
 
-refs.canvas.width = LENX * (CIRCLE_RADIUS * 2 + 20);
-refs.canvas.height = LENY * (CIRCLE_RADIUS * 2 + 20);
-refs.canvas2.width = LENX * (CIRCLE_RADIUS * 2 + 20);
-refs.canvas2.height = LENY * (CIRCLE_RADIUS * 2 + 20);
+refs.canvas.width = options.LENX * (options.CIRCLE_RADIUS * 2 + 20);
+refs.canvas.height = options.LENY * (options.CIRCLE_RADIUS * 2 + 20);
+refs.canvas2.width = options.LENX * (options.CIRCLE_RADIUS * 2 + 20);
+refs.canvas2.height = options.LENY * (options.CIRCLE_RADIUS * 2 + 20);
 
-for (let i = 0; i < LENX; i++) {
-  const center = {
-    x: i * (CIRCLE_RADIUS * 2 + 20),
-    y: 0 * (CIRCLE_RADIUS * 2 + 20),
-  };
-  circlesX[i] = new Circle(refs.canvas, center, i + 1, CIRCLE_RADIUS);
+function init() {
+  if (idInterval) clearInterval(idInterval);
+
+  for (let i = 0; i < options.LENX; i++) {
+    const center = {
+      x: i * (options.CIRCLE_RADIUS * 2 + 20),
+      y: 0 * (options.CIRCLE_RADIUS * 2 + 20),
+    };
+    options.circlesX[i] = new Circle({
+      canvas: refs.canvas,
+      center,
+      step: i + 1,
+      radius: options.CIRCLE_RADIUS,
+    });
+  }
+  for (let i = 0; i < options.LENY; i++) {
+    const center = {
+      x: 0 * (options.CIRCLE_RADIUS * 2 + 20),
+      y: i * (options.CIRCLE_RADIUS * 2 + 20),
+    };
+    options.circlesY[i] = new Circle({
+      canvas: refs.canvas,
+      center,
+      step: i + 1,
+      radius: options.CIRCLE_RADIUS,
+    });
+  }
+
+  idInterval = setInterval(() => {
+    Circle.clearCanvas();
+    drawCircles();
+  }, 10);
 }
-for (let i = 0; i < LENY; i++) {
-  const center = {
-    x: 0 * (CIRCLE_RADIUS * 2 + 20),
-    y: i * (CIRCLE_RADIUS * 2 + 20),
-  };
-  circlesY[i] = new Circle(refs.canvas, center, i + 1, CIRCLE_RADIUS);
-}
-
+init();
 function drawCircles() {
-  for (let i = 1; i < LENX; i++) {
-    circlesX[i].nextIteration();
-    circlesX[i].show();
+  for (let i = 1; i < options.LENX; i++) {
+    options.circlesX[i].nextIteration();
+    options.circlesX[i].show();
   }
-  for (let i = 1; i < LENY; i++) {
-    circlesY[i].nextIteration();
-    circlesY[i].show();
+  for (let i = 1; i < options.LENY; i++) {
+    options.circlesY[i].nextIteration();
+    options.circlesY[i].show();
   }
 
-  for (let i = 1; i < LENX; i++) {
-    for (let j = 1; j < LENY; j++) {
-      const x = circlesX[i].currentPoint.x;
-      const y = circlesY[j].currentPoint.y;
+  for (let i = 1; i < options.LENX; i++) {
+    for (let j = 1; j < options.LENY; j++) {
+      const x = options.circlesX[i].currentPoint.x;
+      const y = options.circlesY[j].currentPoint.y;
       drawPoint(x, y);
 
-      // drawLine(circlesX[i].currentPoint, {
+      // drawLine(options.circlesX[i].currentPoint, {
       //   x: x,
-      //   y: circlesY[j].currentPoint.y,
+      //   y: options.circlesY[j].currentPoint.y,
       // });
 
-      // drawLine(circlesY[j].currentPoint, {
-      //   x: circlesX[i].currentPoint.x,
-      //   y: circlesY[j].currentPoint.y,
+      // drawLine(options.circlesY[j].currentPoint, {
+      //   x: options.circlesX[i].currentPoint.x,
+      //   y: options.circlesY[j].currentPoint.y,
       // });
     }
   }
 }
 
 function drawPoint(x, y) {
-  const RADIUS = 5;
+  const RADIUS = options.widthBrush;
   const canvas = refs.canvas2.getContext("2d");
-  canvas.fillStyle = "blue";
+  canvas.fillStyle = options.colorBrush;
   canvas.beginPath();
   canvas.ellipse(x, y, RADIUS, RADIUS, 0, 0, 2 * Math.PI);
   canvas.fill();
@@ -91,7 +115,10 @@ refs.saveBtn.addEventListener("click", () => {
   downloadLink.click();
 });
 
-setInterval(() => {
+document.querySelector(".js-control-form").addEventListener("submit", (e) => {
+  e.preventDefault();
   Circle.clearCanvas();
-  drawCircles();
-}, 10);
+  const canvas = refs.canvas2.getContext("2d");
+  canvas.clearRect(0, 0, 10000, 10000);
+  reload(init, options, e.target);
+});
