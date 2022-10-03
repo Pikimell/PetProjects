@@ -8,9 +8,12 @@ body{
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     box-sizing: border-box;
+}
+h1{
+    text-align: center;
 }
 
 .generator {
