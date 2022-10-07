@@ -91,6 +91,14 @@ export class SnakeMap {
       this.genereteFood();
       this.snake.increaseSnake();
     }
+
+    if (
+      this.lenX - this.snake.snakeHead.x === this.food.x &&
+      this.lenY - this.snake.snakeHead.y === this.food.y
+    ) {
+      this.genereteFood();
+      this.snake.increaseSnake();
+    }
   }
 
   gameOver() {

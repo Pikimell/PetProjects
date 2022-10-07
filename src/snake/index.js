@@ -11,7 +11,7 @@ const options = {
   fps: 100,
 };
 
-const snake = new Snake(5);
+const snake = new Snake(25);
 const map = new SnakeMap(snake, 39, 34, refs.canvas);
 
 refs.startBtn.addEventListener("click", (e) => {
