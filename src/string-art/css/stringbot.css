@@ -1,0 +1,32 @@
+.canvas{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom:0;
+    margin:auto;
+    padding: 0;
+
+    background-color: #fff;
+    aspect-ratio: 1 / 1;
+}
+
+.formdata{
+    position: absolute;
+    left: 10px;
+    top:0;
+    bottom: 0;
+    margin: auto;
+    height: 90vh;
+    width: 40vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.formdata textarea{
+    width: 90%;
+    margin-bottom: 20px;
+}
