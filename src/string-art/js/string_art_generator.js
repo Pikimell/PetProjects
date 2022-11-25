@@ -367,7 +367,7 @@ StringArtGenerator.prototype.Save = function () {
     );
     link.download = "art.stringart";
   } else if (type == "save") {
-    localStorage.setItem("dataPoint", this.ToTxt());
+    localStorage.setItem("dataPoint", JSON.stringify(this.ToTxt().join("\n")));
     return;
   } else if (type == "png") {
     link.href = this.canvas.toDataURL();
