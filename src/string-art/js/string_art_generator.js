@@ -366,6 +366,8 @@ StringArtGenerator.prototype.Save = function () {
       new Blob([this.ToStringArt()], { type: "application/json" })
     );
     link.download = "art.stringart";
+  } else if (type == "save") {
+    localStorage.setItem("dataPoint", this.ToTxt());
   } else if (type == "png") {
     link.href = this.canvas.toDataURL();
     link.download = "art.png";
