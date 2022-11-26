@@ -3,12 +3,11 @@ const refs = {
   canvas: document.querySelector("canvas"),
 };
 const ctx = refs.canvas.getContext("2d");
+ctx.lineWidth = 1;
 let arrPoints = [];
 
 const drawPoints = {
-  prevPoint: -1,
   currentPoint: 0,
-  nextPoint: 1,
 };
 
 refs.formElem.addEventListener("submit", (e) => {
@@ -19,33 +18,44 @@ refs.formElem.addEventListener("submit", (e) => {
 document.body.addEventListener("keydown", (e) => {
   if (e.code === "Enter") {
     drawPoints.currentPoint = 0;
-    drawPoints.prevPoint = -1;
-    drawPoints.nextPoint = 1;
     if (arrPoints.length === 0) {
       arrPoints = JSON.parse(localStorage.getItem("dataPoint"));
+      drawPoints.currentPoint = Number(localStorage.getItem("lastPoint"));
     }
+    draw();
+  } else if (e.code === "KeyQ") {
+    drawPoints.currentPoint--;
     draw();
   } else {
     drawPoints.currentPoint++;
-    drawPoints.prevPoint++;
-    drawPoints.nextPoint++;
     draw();
   }
 });
 
 function saveData() {
   localStorage.setItem("points", JSON.stringify(drawPoints));
+  localStorage.setItem("lastPoint", drawPoints.currentPoint);
 }
 function loadData(dataString) {
   arrPoints = dataString.split("\n");
   localStorage.setItem("dataPoint", JSON.stringify(arrPoints));
+  localStorage.setItem("lastPoint", 0);
 }
 
 function draw() {
-  const prevPoint = +(arrPoints[drawPoints.prevPoint] || 0);
+  saveData();
+  const prevPoint = +(arrPoints[drawPoints.currentPoint - 1] || 0);
   const currentPoint = +(arrPoints[drawPoints.currentPoint] || 0);
-  const nextPoint = +(arrPoints[drawPoints.nextPoint] || 0);
+  const nextPoint = +(arrPoints[drawPoints.currentPoint + 1] || 0);
 
+  // drawLine(
+  //   ctx,
+  //   currentPoint,
+  //   nextPoint,
+  //   300,
+  //   { x: refs.canvas.width / 2, y: refs.canvas.height / 2 },
+  //   refs.canvas.width / 2 - 5
+  // );
   ctx.clearRect(0, 0, refs.canvas.width, refs.canvas.height);
   drawCircle(
     ctx,
@@ -106,7 +116,8 @@ function drawCircle(ctx, r, countPoint, center, ...points) {
   }
 
   for (let i = 0; i < points.length; i++) {
-    let angle = radian * +points[i];
+    let angle = radian * (countPoint - +points[i]);
+    // angle += Math.round(countPoint / 4);
     const endPoint = {
       x: r * Math.sin(angle) + center.x,
       y: r * Math.cos(angle) + center.y,
@@ -129,4 +140,25 @@ function drawCircle(ctx, r, countPoint, center, ...points) {
     ctx.ellipse(endPoint.x, endPoint.y, minR, minR, 0, 0, Math.PI * 2);
     ctx.fill();
   }
+}
+
+function drawLine(ctx, currentPoint, nextPoint, countPoint, center, r) {
+  currentPoint -= 60;
+  nextPoint -= 60;
+
+  const radian = (Math.PI * 2) / countPoint;
+
+  const startPoint = {
+    x: r * Math.sin(radian * currentPoint) + center.x,
+    y: r * Math.cos(radian * currentPoint) + center.y,
+  };
+  const endPoint = {
+    x: r * Math.sin(radian * nextPoint) + center.x,
+    y: r * Math.cos(radian * nextPoint) + center.y,
+  };
+
+  ctx.beginPath(); // Start a new path
+  ctx.moveTo(startPoint.x, startPoint.y); // Move the pen to (30, 50)
+  ctx.lineTo(endPoint.x, endPoint.y); // Draw a line to (150, 100)
+  ctx.stroke();
 }
