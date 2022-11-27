@@ -12,15 +12,26 @@
     <link rel="stylesheet" href="./css/stringbot.css">
 </head>
 <body>
-    <form class="formdata js-form">
-        <textarea name="data"></textarea>
-        <button type="submit">LOAD</button>
-    </form>
+    <div class="controls">
+        <form class="formdata js-form">
+            <textarea name="data"></textarea>
+            <button type="submit">LOAD</button>
+        </form>
+        <form class="formdata js-form1">
+            <input type="number" name="point"/>
+            <button type="submit">LOAD</button>
+        </form>
+        <div class="fb fb-h js-btn">
+            <button class="btn" data-value="prev">Prev</button>
+            <button class="btn" data-value="next">Next</button>
+        </div>
+    </div>
+    
 
     <canvas class="canvas js-canvas" width="700" height="700">
 
     </canvas>
 
-    <script src="./js/stringAtrBot.js"></script>
+    <script src="./js/stringAtrBot.js" type="module"></script>
 </body>
 </html>

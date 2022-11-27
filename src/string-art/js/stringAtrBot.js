@@ -1,6 +1,9 @@
+import { speak } from "./speaker";
 const refs = {
   formElem: document.querySelector(".js-form"),
+  form1Elem: document.querySelector(".js-form1"),
   canvas: document.querySelector("canvas"),
+  btnElems: document.querySelector(".js-btn"),
 };
 const ctx = refs.canvas.getContext("2d");
 ctx.lineWidth = 1;
@@ -15,22 +18,38 @@ refs.formElem.addEventListener("submit", (e) => {
   const data = e.target.elements.data.value;
   loadData(data);
 });
+refs.form1Elem.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const point = Number(e.target.elements.point.value);
+  setPoint(point);
+});
+
 document.body.addEventListener("keydown", (e) => {
   if (e.code === "Enter") {
-    drawPoints.currentPoint = 0;
-    if (arrPoints.length === 0) {
-      arrPoints = JSON.parse(localStorage.getItem("dataPoint"));
-      drawPoints.currentPoint = Number(localStorage.getItem("lastPoint"));
-    }
-    draw();
-  } else if (e.code === "KeyQ") {
-    drawPoints.currentPoint--;
-    draw();
-  } else {
-    drawPoints.currentPoint++;
-    draw();
+    loadPoint();
+  } else if (e.code === "ArrowLeft") {
+    prevPoint();
+  } else if (e.code === "ArrowRight" || e.code === "Space") {
+    nextPoint();
   }
 });
+
+function loadPoint() {
+  drawPoints.currentPoint = 0;
+  if (arrPoints.length === 0) {
+    arrPoints = JSON.parse(localStorage.getItem("dataPoint"));
+    drawPoints.currentPoint = Number(localStorage.getItem("lastPoint"));
+  }
+  draw();
+}
+function nextPoint() {
+  drawPoints.currentPoint++;
+  draw();
+}
+function prevPoint() {
+  drawPoints.currentPoint--;
+  draw();
+}
 
 function saveData() {
   localStorage.setItem("points", JSON.stringify(drawPoints));
@@ -48,6 +67,7 @@ function draw() {
   const currentPoint = +(arrPoints[drawPoints.currentPoint] || 0);
   const nextPoint = +(arrPoints[drawPoints.currentPoint + 1] || 0);
 
+  refs.form1Elem.elements.point.value = drawPoints.currentPoint;
   // drawLine(
   //   ctx,
   //   currentPoint,
@@ -67,6 +87,11 @@ function draw() {
     nextPoint
   );
 
+  try {
+    speak(arrPoints[drawPoints.currentPoint]);
+  } catch {
+    console.log("err");
+  }
   drawText(
     ctx,
     prevPoint,
@@ -162,3 +187,21 @@ function drawLine(ctx, currentPoint, nextPoint, countPoint, center, r) {
   ctx.lineTo(endPoint.x, endPoint.y); // Draw a line to (150, 100)
   ctx.stroke();
 }
+
+function setPoint(point) {
+  drawPoints.currentPoint = point;
+  draw();
+}
+
+refs.btnElems.addEventListener("click", (e) => {
+  if (e.target != e.currentTarget) {
+    const btn = e.target.closest("button");
+    const value = btn.dataset.value;
+
+    if (value == "prev") {
+      prevPoint();
+    } else {
+      nextPoint();
+    }
+  }
+});

@@ -9,24 +9,59 @@
 
     background-color: #fff;
     aspect-ratio: 1 / 1;
+    
 }
 
-.formdata{
+
+
+.controls{
     position: absolute;
     left: 10px;
-    top:0;
-    bottom: 0;
+    top:20px;
+    bottom: 20px;
     margin: auto;
-    height: 90vh;
-    width: 40vh;
-    overflow-y: auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
 }
+.formdata{
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin:20px;
+    border:1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
 
 .formdata textarea{
     width: 90%;
     margin-bottom: 20px;
+}
+
+.fb{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fb-h{
+    flex-direction: column;
+}
+@media (max-width:1000px) {
+    .canvas{
+        display:none;
+    }
+    .btn{
+        width: 90vw;
+        height: 20vh;
+        font-size: 30;
+    }
+    .controls{
+        left: 0;
+        right:0;
+    }
 }
