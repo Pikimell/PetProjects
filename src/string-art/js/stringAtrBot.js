@@ -209,3 +209,7 @@ refs.btnElems.addEventListener("click", (e) => {
     }
   }
 });
+
+refs.canvas.addEventListener("click", () => {
+  nextPoint();
+});
