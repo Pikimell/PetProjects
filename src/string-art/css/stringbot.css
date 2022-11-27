@@ -24,6 +24,8 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    overflow-y: auto;
+
 }
 .formdata{
     overflow-y: auto;
@@ -53,7 +55,10 @@
 }
 @media (max-width:1000px) {
     .canvas{
-        display:none;
+        left:-156px;
+        top:84vh;
+        transform: scale(0.5);
+        padding-bottom: 100px;
     }
     .btn{
         width: 90vw;

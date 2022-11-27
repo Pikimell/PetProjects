@@ -16,7 +16,11 @@ const drawPoints = {
 refs.formElem.addEventListener("submit", (e) => {
   e.preventDefault();
   const data = e.target.elements.data.value;
-  loadData(data);
+  if (data) {
+    loadData(data);
+  } else {
+    loadPoint();
+  }
 });
 refs.form1Elem.addEventListener("submit", (e) => {
   e.preventDefault();
