@@ -1,4 +1,5 @@
 import { speak } from "./speaker";
+let COUNT_POINTS = 294;
 const refs = {
   formElem: document.querySelector(".js-form"),
   form1Elem: document.querySelector(".js-form1"),
@@ -76,7 +77,7 @@ function draw() {
   //   ctx,
   //   currentPoint,
   //   nextPoint,
-  //   300,
+  //   COUNT_POINTS,
   //   { x: refs.canvas.width / 2, y: refs.canvas.height / 2 },
   //   refs.canvas.width / 2 - 5
   // );
@@ -84,7 +85,7 @@ function draw() {
   drawCircle(
     ctx,
     refs.canvas.width / 2 - 5,
-    300,
+    COUNT_POINTS,
     { x: refs.canvas.width / 2, y: refs.canvas.height / 2 },
     prevPoint,
     currentPoint,
@@ -131,7 +132,7 @@ function drawCircle(ctx, r, countPoint, center, ...points) {
   const radian = (Math.PI * 2) / countPoint;
 
   for (let i = 0; i < countPoint; i++) {
-    let angle = radian * i;
+    let angle = radian * (COUNT_POINTS - (i - Math.round(COUNT_POINTS / 4)));
     const endPoint = {
       x: r * Math.sin(angle) + center.x,
       y: r * Math.cos(angle) + center.y,
@@ -145,8 +146,8 @@ function drawCircle(ctx, r, countPoint, center, ...points) {
   }
 
   for (let i = 0; i < points.length; i++) {
-    let angle = radian * (countPoint - +points[i]);
-    // angle += Math.round(countPoint / 4);
+    let angle =
+      radian * (COUNT_POINTS - (+points[i] - Math.round(COUNT_POINTS / 4)));
     const endPoint = {
       x: r * Math.sin(angle) + center.x,
       y: r * Math.cos(angle) + center.y,
@@ -172,8 +173,8 @@ function drawCircle(ctx, r, countPoint, center, ...points) {
 }
 
 function drawLine(ctx, currentPoint, nextPoint, countPoint, center, r) {
-  currentPoint -= 60;
-  nextPoint -= 60;
+  // currentPoint -= 60;
+  // nextPoint -= 60;
 
   const radian = (Math.PI * 2) / countPoint;
 
