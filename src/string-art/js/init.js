@@ -51,6 +51,13 @@ StringArtGenerator.prototype.InitControls = function () {
   this.drawBox.addEventListener("change", () => this.changeDrawble());
   this.isDraw = true;
 
+  this.sizeBoxElem = document.getElementById("size-box");
+  this.sizeValueElem = document.getElementById("size-value");
+  this.sizeBoxElem.addEventListener("input", (e) => {
+    this.ChangeSize(e);
+    this.UpdateSizePhoto();
+  });
+
   this.contrastBox = document.getElementById("contrast-box");
   this.contrastValue = document.getElementById("contrast-value");
   this.contrastBox.addEventListener("input", () => this.UpdateContrast());
@@ -116,6 +123,7 @@ StringArtGenerator.prototype.InitControls = function () {
     this.linesColorBox,
     this.backgroundColorBox,
     this.resetBtn,
+    this.sizeBoxElem,
   ];
 
   this.UpdateContrast();

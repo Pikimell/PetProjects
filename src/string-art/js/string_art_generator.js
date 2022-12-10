@@ -61,6 +61,11 @@ StringArtGenerator.prototype.UpdateContrast = function () {
     this.contrastTable[i] = this.LimitPixel((i - 128) * contrast + 128);
 };
 
+StringArtGenerator.prototype.UpdateSizePhoto = function (value) {
+  if (!value) value = this.sizeBoxElem.value;
+  this.sizeValueElem.textContent = value;
+};
+
 StringArtGenerator.prototype.UpdateBrightness = function () {
   let value = +this.brightnessBox.value;
   let brightness = 1 + value / 100;
