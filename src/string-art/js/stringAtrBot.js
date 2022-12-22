@@ -1,5 +1,5 @@
 import { speak } from "./speaker";
-let COUNT_POINTS = 294;
+let COUNT_POINTS = 387;
 const refs = {
   formElem: document.querySelector(".js-form"),
   form1Elem: document.querySelector(".js-form1"),
