@@ -19,12 +19,22 @@
         </form>
         <form class="formdata js-form1">
             <input type="number" name="point"/>
+            <input type="number" name="count"/>
+            <input type="number" name="delay"/>
             <button type="submit">LOAD</button>
         </form>
         <div class="fb fb-h js-btn">
             <button class="btn" data-value="prev">Prev</button>
             <button class="btn" data-value="next">Next</button>
         </div>
+        
+            <audio
+            controls loop
+            src="./files/Wednesday.mp3">
+                <a href="./files/Wednesday.mp3">
+                    Download audio
+                </a>
+        </audio>
     </div>
     
 
@@ -33,5 +43,6 @@
     </canvas>
 
     <script src="./js/stringAtrBot.js" type="module"></script>
+    <script src="js/services.js" type="module"></script>
 </body>
 </html>

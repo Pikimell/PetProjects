@@ -1,5 +1,8 @@
 import { speak } from "./speaker";
-let COUNT_POINTS = 387;
+export const PARAMS = {
+  COUNT_POINTS: 100,
+  DELAY_TIME: 5,
+};
 const refs = {
   formElem: document.querySelector(".js-form"),
   form1Elem: document.querySelector(".js-form1"),
@@ -26,6 +29,10 @@ refs.formElem.addEventListener("submit", (e) => {
 refs.form1Elem.addEventListener("submit", (e) => {
   e.preventDefault();
   const point = Number(e.target.elements.point.value);
+  const count = Number(e.target.elements.count.value);
+  const delay = Number(e.target.elements.delay.value);
+  PARAMS.COUNT_POINTS = count;
+  PARAMS.DELAY_TIME = delay;
   setPoint(point);
 });
 
@@ -47,11 +54,11 @@ function loadPoint() {
   }
   draw();
 }
-function nextPoint() {
+export function nextPoint() {
   drawPoints.currentPoint++;
   draw();
 }
-function prevPoint() {
+export function prevPoint() {
   drawPoints.currentPoint--;
   draw();
 }
@@ -85,7 +92,7 @@ function draw() {
   drawCircle(
     ctx,
     refs.canvas.width / 2 - 5,
-    COUNT_POINTS,
+    PARAMS.COUNT_POINTS,
     { x: refs.canvas.width / 2, y: refs.canvas.height / 2 },
     prevPoint,
     currentPoint,
@@ -132,7 +139,9 @@ function drawCircle(ctx, r, countPoint, center, ...points) {
   const radian = (Math.PI * 2) / countPoint;
 
   for (let i = 0; i < countPoint; i++) {
-    let angle = radian * (COUNT_POINTS - (i - Math.round(COUNT_POINTS / 4)));
+    let angle =
+      radian *
+      (PARAMS.COUNT_POINTS - (i - Math.round(PARAMS.COUNT_POINTS / 4)));
     const endPoint = {
       x: r * Math.sin(angle) + center.x,
       y: r * Math.cos(angle) + center.y,
@@ -147,7 +156,9 @@ function drawCircle(ctx, r, countPoint, center, ...points) {
 
   for (let i = 0; i < points.length; i++) {
     let angle =
-      radian * (COUNT_POINTS - (+points[i] - Math.round(COUNT_POINTS / 4)));
+      radian *
+      (PARAMS.COUNT_POINTS -
+        (+points[i] - Math.round(PARAMS.COUNT_POINTS / 4)));
     const endPoint = {
       x: r * Math.sin(angle) + center.x,
       y: r * Math.cos(angle) + center.y,
