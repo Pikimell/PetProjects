@@ -238,6 +238,7 @@ refs.canvas.addEventListener("click", () => {
 });
 
 refs.audioElem.addEventListener("change", (e) => {
+  console.log("test");
   const file = e.target.files[0];
-  playerElem.src = URL.createObjectURL(file);
+  refs.playerElem.src = URL.createObjectURL(file);
 });
