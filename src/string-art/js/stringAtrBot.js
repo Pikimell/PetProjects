@@ -8,6 +8,7 @@ const refs = {
   form1Elem: document.querySelector(".js-form1"),
   canvas: document.querySelector("canvas"),
   btnElems: document.querySelector(".js-btn"),
+  visibleBtn: document.querySelector(".js-visible-canvas"),
 };
 const ctx = refs.canvas.getContext("2d");
 ctx.lineWidth = 1;
@@ -16,6 +17,14 @@ let arrPoints = [];
 const drawPoints = {
   currentPoint: 0,
 };
+
+refs.visibleBtn.addEventListener("change", (e) => {
+  if (e.target.checked) {
+    refs.canvas.style.visibility = "hidden";
+  } else {
+    refs.canvas.style.visibility = "";
+  }
+});
 
 refs.formElem.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -31,9 +40,9 @@ refs.form1Elem.addEventListener("submit", (e) => {
   const point = Number(e.target.elements.point.value);
   const count = Number(e.target.elements.count.value);
   const delay = Number(e.target.elements.delay.value);
-  PARAMS.COUNT_POINTS = count;
-  PARAMS.DELAY_TIME = delay;
-  setPoint(point);
+  PARAMS.COUNT_POINTS = count || PARAMS.COUNT_POINTS;
+  PARAMS.DELAY_TIME = delay || PARAMS.DELAY_TIME;
+  setPoint(point || drawPoints.currentPoint);
 });
 
 document.body.addEventListener("keydown", (e) => {
