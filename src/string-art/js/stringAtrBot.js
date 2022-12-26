@@ -9,6 +9,8 @@ const refs = {
   canvas: document.querySelector("canvas"),
   btnElems: document.querySelector(".js-btn"),
   visibleBtn: document.querySelector(".js-visible-canvas"),
+  audioElem: document.querySelector(".js-audio"),
+  playerElem: document.querySelector(".js-player"),
 };
 const ctx = refs.canvas.getContext("2d");
 ctx.lineWidth = 1;
@@ -233,4 +235,9 @@ refs.btnElems.addEventListener("click", (e) => {
 
 refs.canvas.addEventListener("click", () => {
   nextPoint();
+});
+
+refs.audioElem.addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  playerElem.src = URL.createObjectURL(file);
 });
