@@ -1,0 +1,2 @@
+body.show-modal .backdrop{opacity:1;display:flex}.backdrop{opacity:0;width:100vw;height:100vh;background-color:#5555559c;justify-content:center;align-items:center;display:none;position:absolute;top:0;left:0}.modal{width:150px;height:250px;background-color:#fff;border-radius:15px;justify-content:center;align-items:center;display:flex;position:relative;transform:scale(2)}.modal>*{margin-top:50px}
+/*# sourceMappingURL=index.e8d6ee17.css.map */
